@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { RouterView } from 'vue-router';
 import '@/app/styles/index.sass';
 </script>
 
 <template>
-	<button class="btn btn--color-secondary">
-		Nordify
-	</button>
+	<RouterView />
 </template>
+
+<style scoped></style>
