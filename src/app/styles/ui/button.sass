@@ -1,0 +1,186 @@
+.btn
+	--btn-px: 19px
+	--btn-py: 13px
+	--btn-gap: 16px
+	--btn-min-height: 48px
+
+	--btn-font-family: var(--font-family)
+	--btn-font-size: var(--font-size-text)
+	--btn-line-height: var(--line-height-xl)
+	--btn-letter-spacing: normal
+	--btn-font-weight: 500
+	--btn-text-transform: none
+
+	--btn-color: var(--color-neutral-200)
+	--btn-color-hover: var(--color-neutral-200)
+	--btn-color-focus: var(--color-neutral-200)
+	--btn-color-active: var(--color-neutral-200)
+	--btn-color-disabled: var(--color-neutral-200)
+
+	--btn-bg: var(--color-neutral-800)
+	--btn-bg-hover: var(--color-neutral-800)
+	--btn-bg-focus: var(--color-neutral-800)
+	--btn-bg-active: var(--color-neutral-800)
+	--btn-bg-disabled: var(--color-neutral-800)
+
+	--btn-border-size: 2px
+	--btn-border-color: transparent
+	--btn-border-color-hover: transparent
+	--btn-border-color-focus: transparent
+	--btn-border-color-active: transparent
+	--btn-border-color-disabled: transparent
+
+	--btn-radius: var(--radius-s)
+
+	--btn-loader-color: currentcolor
+	--btn-loader-ring-color: var(--color-neutral-200)
+	--btn-icon-size: 16px
+
+	position: relative
+
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	gap: var(--btn-gap)
+
+	min-height: max(calc(var(--btn-font-size) * var(--btn-line-height) + var(--btn-py) * 2 + var(--btn-border-size) * 2), var(--btn-min-height))
+	padding: var(--btn-py) var(--btn-px)
+
+	border: var(--btn-border-size) solid var(--btn-border-color)
+	border-radius: var(--btn-radius)
+
+	background-color: var(--btn-bg)
+
+	color: var(--btn-color)
+
+	font-family: var(--btn-font-family), sans-serif
+	font-size: var(--btn-font-size)
+	font-weight: var(--btn-font-weight)
+	letter-spacing: var(--btn-letter-spacing)
+	line-height: 1
+
+	text-align: center
+	text-decoration: none
+	text-transform: var(--btn-text-transform)
+
+	transition: color .3s ease, border-color .3s ease, background-color .3s ease
+
+	cursor: pointer
+
+	@media screen and (max-width: 768px)
+		--btn-px: 15px
+		--btn-py: 11px
+		--btn-gap: 10px
+		--btn-min-height: 40px
+
+		font-size: var(--font-size-text-mob)
+		line-height: var(--line-height-m)
+
+	&:focus
+		outline: none
+
+	&:focus-visible
+		--btn-color: var(--btn-color-focus)
+		--btn-bg: var(--btn-bg-focus)
+		--btn-border-color: var(--btn-border-color-focus)
+
+	@media (hover: hover)
+		&:hover
+			--btn-color: var(--btn-color-hover)
+			--btn-bg: var(--btn-bg-hover)
+			--btn-border-color: var(--btn-border-color-hover)
+
+	&:active,
+	&.active
+		--btn-color: var(--btn-color-active)
+		--btn-bg: var(--btn-bg-active)
+		--btn-border-color: var(--btn-border-color-active)
+
+	&:disabled,
+	&.disabled
+		--btn-color: var(--btn-color-disabled)
+		--btn-bg: var(--btn-bg-disabled)
+		--btn-border-color: var(--btn-border-color-disabled)
+
+		cursor: not-allowed
+
+		&:focus-visible
+			outline: none
+
+	&.loading
+		cursor: wait
+
+		&::before
+			content: ''
+			position: absolute
+			top: calc(50% - var(--btn-icon-size) / 2)
+			left: calc(50% - var(--btn-icon-size) / 2)
+
+			display: block
+			flex: none
+
+			width: var(--btn-icon-size)
+			height: var(--btn-icon-size)
+
+			border-width: 2px
+			border-style: solid
+
+			border-radius: 50%
+			border-color: var(--btn-loader-color) var(--btn-loader-color) var(--btn-loader-ring-color)
+
+			transition: border-color .3s ease
+			animation: spin360 .7s linear infinite
+
+		& > *
+			visibility: hidden
+
+	&__text
+		display: block
+		flex: none
+
+	&__icon
+		display: block
+		flex: none
+		width: var(--btn-icon-size)
+		height: var(--btn-icon-size)
+		color: currentcolor
+
+	&--color
+		&-primary
+			--btn-bg: var(--color-primary-500)
+			--btn-bg-hover: var(--color-primary-400)
+			--btn-bg-focus: var(--color-primary-500)
+			--btn-bg-active: var(--color-primary-500)
+			--btn-bg-disabled: var(--color-neutral-500)
+
+			--btn-border-color: var(--color-primary-500)
+			--btn-border-color-hover: var(--color-primary-400)
+			--btn-border-color-focus: var(--color-primary-500)
+			--btn-border-color-active: var(--color-primary-500)
+			--btn-border-color-disabled: var(--color-neutral-500)
+
+		&-secondary
+			--btn-color: var(--color-primary-500)
+			--btn-color-hover: var(--color-primary-400)
+			--btn-color-focus: var(--color-primary-500)
+			--btn-color-active: var(--color-primary-500)
+			--btn-color-disabled: var(--color-neutral-500)
+
+			--btn-bg: transparent
+			--btn-bg-hover: transparent
+			--btn-bg-focus: transparent
+			--btn-bg-active: transparent
+			--btn-bg-disabled: transparent
+
+			--btn-border-color: var(--color-primary-500)
+			--btn-border-color-hover: var(--color-primary-400)
+			--btn-border-color-focus: var(--color-primary-500)
+			--btn-border-color-active: var(--color-primary-500)
+			--btn-border-color-disabled: var(--color-neutral-500)
+
+@keyframes spin360
+	0%
+		transform: rotate(0)
+
+	100%
+		transform: rotate(360deg)

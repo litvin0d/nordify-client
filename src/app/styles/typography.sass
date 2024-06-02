@@ -1,0 +1,58 @@
+h1
+	font-size: var(--font-size-h1)
+
+	@media screen and (max-width: 768px)
+		font-size: var(--font-size-h1-mob)
+
+h2
+	font-size: var(--font-size-h2)
+
+	@media screen and (max-width: 768px)
+		font-size: var(--font-size-h2-mob)
+
+h3
+	font-size: var(--font-size-h3)
+
+	@media screen and (max-width: 768px)
+		font-size: var(--font-size-h3-mob)
+
+h4
+	font-size: var(--font-size-h4)
+
+	@media screen and (max-width: 768px)
+		font-size: var(--font-size-h4-mob)
+
+h5
+	font-size: var(--font-size-h5)
+
+	@media screen and (max-width: 768px)
+		font-size: var(--font-size-h5-mob)
+
+h6
+	font-size: var(--font-size-h6)
+
+	@media screen and (max-width: 768px)
+		font-size: var(--font-size-h6-mob)
+
+h1, h2, h3, h4, h5, h6
+	font-weight: 500
+
+p, a, span, li
+	font-size: var(--font-size-text)
+	font-weight: 400
+
+	@media screen and (min-width: 768px)
+		font-size: var(--font-size-text-mob)
+
+a
+	color: var(--color-primary-500)
+	text-decoration: underline
+
+	transition: color .3s ease
+
+	@media (hover: hover)
+		&:hover
+			color: var(--color-primary-400)
+
+h1, h2, h3, h4, h5, h6, p
+	margin: 0
