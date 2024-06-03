@@ -1,6 +1,10 @@
 {
   "name": "nordify-client",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "engineStrict": true,
+  "engines": {
+    "node": ">=20.11"
+  },
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,13 +16,12 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@tanstack/vue-query": "^5.40.0",
     "normalize.css": "^8.0.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.19.2",
+    "@antfu/eslint-config": "^2.20.0",
     "@tsconfig/node20": "^20.1.4",
     "@types/node": "^20.12.5",
     "@vitejs/plugin-vue": "^5.0.4",
@@ -30,5 +33,13 @@
     "vite": "^5.2.8",
     "vite-plugin-vue-devtools": "^7.0.25",
     "vue-tsc": "^2.0.11"
-  }
+  },
+  "browserslist": [
+    ">1%",
+    "not op_mini all",
+    "not ie 11",
+    "last 3 chrome version",
+    "last 3 firefox version",
+    "last 3 safari version"
+  ]
 }
