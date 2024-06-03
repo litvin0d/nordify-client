@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { reactive, toRaw } from 'vue';
 import {
 	BaseForm,
 	BaseFormActions,
@@ -9,10 +10,25 @@ import {
 	BaseFormTitle,
 } from '@/components/ui/form';
 import { RouteNames } from '@/router/types';
+import { useAuth } from '@/api/composables/useAuth';
+import type { SignInData } from '@/api/types';
+
+const formData = reactive<SignInData>({
+	username: '',
+	password: '',
+});
+
+const { signIn, isSigningIn } = useAuth();
+
+function submitHandler() {
+	if (formData.username.trim() && formData.password.trim()) {
+		signIn(toRaw(formData));
+	}
+}
 </script>
 
 <template>
-	<BaseForm class="sign-in-form">
+	<BaseForm class="sign-in-form" @submit.prevent="submitHandler">
 		<BaseFormTitle>
 			Nordify
 		</BaseFormTitle>
@@ -24,6 +40,7 @@ import { RouteNames } from '@/router/types';
 		<BaseFormFields>
 			<BaseFormInput
 				id="sign-up-username"
+				v-model="formData.username"
 				type="text"
 				autocomplete="username"
 				label="Имя пользователя"
@@ -32,6 +49,7 @@ import { RouteNames } from '@/router/types';
 			/>
 			<BaseFormInput
 				id="sign-up-password"
+				v-model="formData.password"
 				type="password"
 				autocomplete="new-password"
 				label="Пароль"
@@ -41,7 +59,9 @@ import { RouteNames } from '@/router/types';
 		</BaseFormFields>
 
 		<BaseFormActions>
-			<BaseFormSubmit>Войти в аккаунт</BaseFormSubmit>
+			<BaseFormSubmit v-show="!isSigningIn">
+				Войти в аккаунт
+			</BaseFormSubmit>
 			<router-link :to="{ name: RouteNames.SIGN_UP_PAGE }" class="sign-in-form__redirect btn btn--color-secondary">
 				Создать аккаунт
 			</router-link>
