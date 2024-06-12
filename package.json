@@ -17,13 +17,13 @@
   },
   "dependencies": {
     "@tanstack/vue-query": "^5.40.0",
-    "axios": "^1.7.2",
     "normalize.css": "^8.0.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.20.0",
+    "@tanstack/vue-query-devtools": "^5.45.0",
     "@tsconfig/node20": "^20.1.4",
     "@types/node": "^20.12.5",
     "@vitejs/plugin-vue": "^5.0.4",

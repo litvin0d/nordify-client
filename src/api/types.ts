@@ -17,3 +17,7 @@ export interface SignUpData {
 	confirmPassword: string;
 	gender: 'male' | 'female';
 }
+
+export interface LogoutResponse {
+	message: string;
+}

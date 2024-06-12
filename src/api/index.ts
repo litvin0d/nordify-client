@@ -1,8 +1,7 @@
-import axios from 'axios';
+import type { VueQueryPluginOptions } from '@tanstack/vue-query';
+import { QueryClient } from '@tanstack/vue-query';
 
-export const apiClient = axios.create({
-	baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
-	headers: {
-		'Content-Type': 'application/json',
-	},
-});
+export const queryClient = new QueryClient();
+export const vueQueryPluginOptions: VueQueryPluginOptions = {
+	queryClient,
+};

@@ -10,7 +10,7 @@ import {
 	BaseFormTitle,
 } from '@/components/ui/form';
 import { RouteNames } from '@/router/types';
-import { useAuth } from '@/api/composables/useAuth';
+import { useSignIn } from '@/api/auth/useSignIn';
 import type { SignInData } from '@/api/types';
 
 const formData = reactive<SignInData>({
@@ -18,7 +18,7 @@ const formData = reactive<SignInData>({
 	password: '',
 });
 
-const { signIn, isSigningIn } = useAuth();
+const { signIn, isSigningIn } = useSignIn();
 
 function submitHandler() {
 	if (formData.username.trim() && formData.password.trim()) {
