@@ -4,6 +4,7 @@ interface BaseFormRadioProps {
 	name?: string;
 	label?: string;
 	value?: string | number;
+	disabled?: boolean;
 }
 
 withDefaults(defineProps<BaseFormRadioProps>(), {
@@ -11,13 +12,17 @@ withDefaults(defineProps<BaseFormRadioProps>(), {
 	name: '',
 	label: '',
 	value: '',
+	disabled: false,
 });
 
 const modelValue = defineModel<string | number>();
 </script>
 
 <template>
-	<label class="form-radio">
+	<label
+		class="form-radio"
+		:class="{ 'form-radio--disabled': disabled }"
+	>
 		<input
 			:id
 			v-model="modelValue"
@@ -37,6 +42,10 @@ const modelValue = defineModel<string | number>();
   display: flex
   align-items: center
   gap: 4px
+  cursor: pointer
+
+  &--disabled
+    pointer-events: none
 
   &__label
     color: var(--color-neutral-400)

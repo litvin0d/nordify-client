@@ -4,6 +4,7 @@ import {
 	BaseForm,
 	BaseFormActions,
 	BaseFormDescription,
+	BaseFormError,
 	BaseFormFields,
 	BaseFormInput,
 	BaseFormSubmit,
@@ -18,7 +19,7 @@ const formData = reactive<SignInData>({
 	password: '',
 });
 
-const { signIn, isSigningIn } = useSignIn();
+const { signIn, isSigningIn, signInError } = useSignIn();
 
 function submitHandler() {
 	if (formData.username.trim() && formData.password.trim()) {
@@ -36,6 +37,11 @@ function submitHandler() {
 		<BaseFormDescription>
 			Войдите в свой аккаунт в мессенджере
 		</BaseFormDescription>
+
+		<BaseFormError
+			v-if="signInError"
+			:error="signInError.message"
+		/>
 
 		<BaseFormFields>
 			<BaseFormInput
@@ -58,8 +64,8 @@ function submitHandler() {
 			/>
 		</BaseFormFields>
 
-		<BaseFormActions>
-			<BaseFormSubmit v-show="!isSigningIn">
+		<BaseFormActions :disabled="isSigningIn">
+			<BaseFormSubmit>
 				Войти в аккаунт
 			</BaseFormSubmit>
 			<router-link :to="{ name: RouteNames.SIGN_UP_PAGE }" class="sign-in-form__redirect btn btn--color-secondary">

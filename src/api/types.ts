@@ -21,3 +21,7 @@ export interface SignUpData {
 export interface LogoutResponse {
 	message: string;
 }
+
+export interface ErrorResponse {
+	error: string;
+}

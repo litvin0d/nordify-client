@@ -1,6 +1,8 @@
 import { useMutation } from '@tanstack/vue-query';
-import type { SignInData, User } from '@/api/types';
+import { useRouter } from 'vue-router';
+import type { ErrorResponse, SignInData, User } from '@/api/types';
 import { queryClient } from '@/api';
+import { RouteNames } from '@/router/types';
 
 async function signInRequest(data: SignInData): Promise<User> {
 	const response = await fetch('/api/auth/login', {
@@ -11,21 +13,30 @@ async function signInRequest(data: SignInData): Promise<User> {
 		body: JSON.stringify(data),
 	});
 
+	if (!response.ok) {
+		const errorResponse: ErrorResponse = await response.json();
+		return Promise.reject(new Error(errorResponse.error));
+	}
+
 	return response.json();
 }
 
 export function useSignIn() {
-	const signInMutation = useMutation({
+	const router = useRouter();
+
+	const { mutate, isPending, error } = useMutation({
 		mutationFn: signInRequest,
-		onSuccess: async () => {
-			await queryClient.invalidateQueries({ queryKey: ['user'] });
+		onSuccess: async (data) => {
+			queryClient.setQueryData(['user'], () => data);
+			await router.push({ name: RouteNames.MAIN_PAGE });
 		},
 	});
 
-	const signIn = (data: SignInData) => signInMutation.mutate(data);
+	const signIn = (data: SignInData) => mutate(data);
 
 	return {
 		signIn,
-		isSigningIn: signInMutation.isPending,
+		isSigningIn: isPending,
+		signInError: error,
 	};
 }

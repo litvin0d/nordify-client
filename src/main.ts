@@ -6,6 +6,6 @@ import { vueQueryPluginOptions } from '@/api';
 
 const app = createApp(App);
 
-app.use(router).use(VueQueryPlugin, vueQueryPluginOptions);
+app.use(VueQueryPlugin, vueQueryPluginOptions).use(router);
 
 app.mount('#app');

@@ -1,6 +1,7 @@
 export * from '@/components/ui/form/Form';
 export * from '@/components/ui/form/FormActions';
 export * from '@/components/ui/form/FormDescription';
+export * from '@/components/ui/form/FormError';
 export * from '@/components/ui/form/FormFields';
 export * from '@/components/ui/form/FormInput';
 export * from '@/components/ui/form/FormRadio';

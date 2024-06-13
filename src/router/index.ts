@@ -1,5 +1,9 @@
 import { type RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
 import { RouteNames } from '@/router/types';
+import { isLoggedIn } from '@/router/middleware/isLoggedIn';
+import type { Middleware } from '@/router/middleware/types';
+import middlewarePipeline from '@/router/middleware/middlewarePipeline';
+import { isLoggedOut } from '@/router/middleware/isLoggedOut';
 
 const routes: RouteRecordRaw[] = [
 	{
@@ -8,6 +12,7 @@ const routes: RouteRecordRaw[] = [
 		component: () => import('@/views/MainView.vue'),
 		meta: {
 			name: 'Главная | Nordify',
+			middleware: [isLoggedIn],
 		},
 	},
 	{
@@ -16,6 +21,7 @@ const routes: RouteRecordRaw[] = [
 		component: () => import('@/views/SignInView.vue'),
 		meta: {
 			name: 'Вход | Nordify',
+			middleware: [isLoggedOut],
 		},
 	},
 	{
@@ -24,6 +30,7 @@ const routes: RouteRecordRaw[] = [
 		component: () => import('@/views/SignUpView.vue'),
 		meta: {
 			name: 'Регистрация | Nordify',
+			middleware: [isLoggedOut],
 		},
 	},
 ];
@@ -38,6 +45,28 @@ router.beforeResolve((to, _, next) => {
 		document.title = to.meta.name.toString();
 
 	next();
+});
+
+router.beforeEach((to, from, next) => {
+	const additionalMiddleware: Array<Middleware> = (to.meta.middleware as Middleware[]) || [];
+	const middlewares = [...additionalMiddleware];
+
+	const context = {
+		to,
+		from,
+		next,
+		abort: next,
+	};
+
+	if (middlewares.length === 0) {
+		next();
+	}
+	else {
+		middlewares[0]({
+			...context,
+			next: middlewarePipeline(context, middlewares, 1),
+		});
+	}
 });
 
 export default router;
