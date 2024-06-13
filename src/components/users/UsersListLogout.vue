@@ -1,0 +1,28 @@
+<script setup lang="ts">
+import { IconLogout } from '@/components/ui/icons';
+</script>
+
+<template>
+	<button class="users-list-logout btn btn--color-tertiary">
+		<IconLogout class="users-list-logout__icon btn__icon" />
+	</button>
+</template>
+
+<style scoped lang="sass">
+.users-list-logout
+	--btn-px: 13px
+	--btn-py: 13px
+	--btn-icon-size: 16px
+	--btn-radius: var(--radius-circle)
+
+	position: sticky
+	left: 28px
+	bottom: 28px
+
+	align-self: flex-start
+	min-width: 48px
+	margin-top: 12px
+
+	&__icon
+		transform: rotate(180deg) translateX(8%)
+</style>
