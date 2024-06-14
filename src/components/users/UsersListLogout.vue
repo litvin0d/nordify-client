@@ -1,9 +1,17 @@
 <script setup lang="ts">
 import { IconLogout } from '@/components/ui/icons';
+import { useLogout } from '@/api/auth/useLogout';
+
+const { logout, isLoggingOut } = useLogout();
 </script>
 
 <template>
-	<button class="users-list-logout btn btn--color-tertiary">
+	<button
+		class="users-list-logout btn btn--color-tertiary"
+		:disabled="isLoggingOut"
+		type="button"
+		@click="logout"
+	>
 		<IconLogout class="users-list-logout__icon btn__icon" />
 	</button>
 </template>
