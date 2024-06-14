@@ -1,20 +1,26 @@
 <script setup lang="ts">
+import type { User } from '@/api/types';
 
+export interface UsersListItemProps {
+	userData: User;
+}
+
+defineProps<UsersListItemProps>();
 </script>
 
 <template>
 	<article class="users-list-item">
 		<div class="users-list-item__avatar users-list-item__avatar--online">
 			<img
-				src="https://avatar.iran.liara.run/public/36"
-				alt="avatar"
+				:src="userData.profilePic"
+				:alt="`Аватар пользователя ${userData.fullName}`"
 				width="48px"
 				height="48px"
 				class="users-list-item__avatar-img"
 			>
 		</div>
 		<span class="users-list-item__name">
-			Some name
+			{{ userData.fullName }}
 		</span>
 	</article>
 </template>
@@ -70,8 +76,6 @@
 				opacity: 1
 
 	&__avatar-img
-		position: relative
-
 		max-width: 48px
 		width: 100%
 		height: auto

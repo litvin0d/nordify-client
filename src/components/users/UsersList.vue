@@ -2,6 +2,9 @@
 import UsersListSearch from '@/components/users/UsersListSearch.vue';
 import UsersListItem from '@/components/users/UsersListItem.vue';
 import UsersListLogout from '@/components/users/UsersListLogout.vue';
+import { useGetUsers } from '@/api/messages/useGetUsers';
+
+const { users } = useGetUsers();
 </script>
 
 <template>
@@ -9,7 +12,13 @@ import UsersListLogout from '@/components/users/UsersListLogout.vue';
 		<UsersListSearch />
 		<div class="users-list__divider" />
 		<section class="users-list__list">
-			<UsersListItem v-for="i in 10" :key="i" />
+			<template v-if="users && users.length > 0">
+				<UsersListItem
+					v-for="user in users"
+					:key="user.id"
+					:user-data="user"
+				/>
+			</template>
 		</section>
 		<UsersListLogout />
 	</aside>
@@ -25,9 +34,10 @@ import UsersListLogout from '@/components/users/UsersListLogout.vue';
 	gap: 16px
 	margin-bottom: 88px
 	overflow: auto
+	height: 100%
 
 	background-color: var(--color-neutral-700)
-	border-radius: var(--radius-xl) 0 0 var(--radius-xl)
+	border-radius: var(--radius-xl)
 
 	scrollbar-width: thin
 	scrollbar-color: var(--color-neutral-800) var(--color-neutral-700)

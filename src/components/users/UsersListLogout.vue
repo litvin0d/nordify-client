@@ -29,7 +29,7 @@ const { logout, isLoggingOut } = useLogout();
 
 	align-self: flex-start
 	min-width: 48px
-	margin-top: 12px
+	margin-top: auto
 
 	&__icon
 		transform: rotate(180deg) translateX(8%)
