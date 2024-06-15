@@ -24,8 +24,8 @@ const { logout, isLoggingOut } = useLogout();
 	--btn-radius: var(--radius-circle)
 
 	position: sticky
-	left: 28px
-	bottom: 28px
+	left: 16px
+	bottom: 16px
 
 	align-self: flex-start
 	min-width: 48px

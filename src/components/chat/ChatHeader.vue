@@ -1,19 +1,27 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router';
+import { useGetUsers } from '@/api/messages/useGetUsers';
 
+const route = useRoute();
+
+const { getCachedUsers } = useGetUsers();
+const users = getCachedUsers();
+
+const user = users?.find(u => u.id === route.params.userId);
 </script>
 
 <template>
-	<div class="chat-header">
+	<div v-if="user" class="chat-header">
 		<img
-			src="https://avatar.iran.liara.run/public/boy?username=ivanov"
-			alt="avatar"
+			:src="user.profilePic"
+			:alt="`Аватар пользователя ${user.fullName}`"
 			width="24px"
 			height="24px"
 			class="chat-header__avatar"
 		>
 
 		<span class="chat-header__name">
-			Ivanov Ivan
+			{{ user.fullName }}
 		</span>
 
 		<span
@@ -49,6 +57,7 @@
 	&__name
 		overflow: hidden
 
+		font-size: var(--font-size-text-mob)
 		font-weight: 500
 		white-space: nowrap
 		text-overflow: ellipsis
@@ -58,6 +67,7 @@
 		margin-right: 8px
 
 		color: var(--color-neutral-400)
+		font-size: var(--font-size-text-mob)
 
 		transition: color .3s ease
 

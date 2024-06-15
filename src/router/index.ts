@@ -9,11 +9,27 @@ const routes: RouteRecordRaw[] = [
 	{
 		path: '/',
 		name: RouteNames.MAIN_PAGE,
-		component: () => import('@/views/MainView.vue'),
+		redirect() {
+			return { name: RouteNames.CHAT_PAGE };
+		},
 		meta: {
 			name: 'Главная | Nordify',
 			middleware: [isLoggedIn],
 		},
+		children: [
+			{
+				path: '/chat',
+				name: RouteNames.CHAT_PAGE,
+				component: () => import('@/views/MainView.vue'),
+				children: [
+					{
+						path: ':userId?',
+						name: RouteNames.CHAT_SELECTED_PAGE,
+						component: () => import('@/views/ChatView.vue'),
+					},
+				],
+			},
+		],
 	},
 	{
 		path: '/sign-in',

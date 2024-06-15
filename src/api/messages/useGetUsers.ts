@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/vue-query';
 import type { ErrorResponse, User } from '@/api/types';
+import { queryClient } from '@/api';
 
 async function getUsersRequest(): Promise<Array<User>> {
 	const response = await fetch('/api/messages/conversations');
@@ -19,8 +20,11 @@ export function useGetUsers() {
 		retry: 1,
 	});
 
+	const getCachedUsers = () => queryClient.getQueryData<Array<User>>(['users']) ?? null;
+
 	return {
 		users: data,
+		getCachedUsers,
 		isGettingUsers: isPending,
 	};
 }

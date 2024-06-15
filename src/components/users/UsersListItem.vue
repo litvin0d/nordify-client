@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { User } from '@/api/types';
+import { RouteNames } from '@/router/types';
 
 export interface UsersListItemProps {
 	userData: User;
@@ -9,7 +10,7 @@ defineProps<UsersListItemProps>();
 </script>
 
 <template>
-	<article class="users-list-item">
+	<router-link :to="{ name: RouteNames.CHAT_SELECTED_PAGE, params: { userId: userData.id } }" class="users-list-item">
 		<div class="users-list-item__avatar users-list-item__avatar--online">
 			<img
 				:src="userData.profilePic"
@@ -22,7 +23,7 @@ defineProps<UsersListItemProps>();
 		<span class="users-list-item__name">
 			{{ userData.fullName }}
 		</span>
-	</article>
+	</router-link>
 </template>
 
 <style scoped lang="sass">
@@ -33,6 +34,9 @@ defineProps<UsersListItemProps>();
 	padding: 12px
 
 	border-radius: var(--radius-l)
+
+	color: inherit
+	text-decoration: none
 
 	cursor: pointer
 

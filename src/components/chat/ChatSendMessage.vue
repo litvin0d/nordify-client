@@ -1,45 +1,39 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { IconSearch } from '@/components/ui/icons';
+import { IconSend } from '@/components/ui/icons';
 
-const searchValue = ref('');
+const messageValue = ref('');
 </script>
 
 <template>
-	<form class="users-list-search" @submit.prevent>
+	<form class="chat-send-message" @submit.prevent>
 		<input
-			id="users-list-search-input"
-			v-model="searchValue"
+			id="chat-send-message-input"
+			v-model="messageValue"
 			type="text"
 			inputmode="text"
 			autocomplete="off"
-			placeholder="Поиск..."
+			placeholder="Написать сообщение..."
 			required
-			class="users-list-search__input"
+			class="chat-send-message__input"
 		>
 		<button
 			type="submit"
-			class="users-list-search__submit btn btn--color-primary"
-			:disabled="!searchValue"
+			class="chat-send-message__submit btn btn--color-primary"
+			:disabled="!messageValue"
 		>
-			<IconSearch class="btn__icon" />
+			<IconSend class="chat-send-message__icon btn__icon" />
 		</button>
 	</form>
 </template>
 
 <style scoped lang="sass">
-.users-list-search
-	position: sticky
-	top: 0
-	z-index: 1
-
+.chat-send-message
 	display: flex
 	align-items: center
 	max-width: 100%
+	width: 100%
 	gap: 8px
-	padding: 16px 16px 0
-
-	background-color: inherit
 
 	&__input
 		flex: 1
@@ -65,10 +59,13 @@ const searchValue = ref('');
 			border-color: var(--color-neutral-500)
 
 	&__submit
-		--btn-px: 13px
-		--btn-py: 13px
-		--btn-icon-size: 16px
+		--btn-px: 5px
+		--btn-py: 5px
+		--btn-icon-size: 24px
 		--btn-radius: var(--radius-circle)
 
 		min-width: 48px
+
+	&__icon
+		transform: translateX(-5%)
 </style>

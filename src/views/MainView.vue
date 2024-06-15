@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import UsersList from '@/components/users/UsersList.vue';
-import ChatComponent from '@/components/chat/ChatComponent.vue';
 </script>
 
 <template>
 	<div class="main">
 		<main class="main__window">
 			<UsersList />
-			<ChatComponent />
+			<router-view />
 		</main>
 	</div>
 </template>
