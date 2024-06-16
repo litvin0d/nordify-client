@@ -4,7 +4,8 @@ import UsersListItem from '@/components/users/UsersListItem.vue';
 import UsersListLogout from '@/components/users/UsersListLogout.vue';
 import { useGetUsers } from '@/api/messages/useGetUsers';
 
-const { users } = useGetUsers();
+const { getUsers, users } = useGetUsers();
+getUsers();
 </script>
 
 <template>

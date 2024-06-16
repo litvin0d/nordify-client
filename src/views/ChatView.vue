@@ -1,43 +1,46 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
-import { computed } from 'vue';
 import ChatHeader from '@/components/chat/ChatHeader.vue';
 import ChatMessages from '@/components/chat/ChatMessages.vue';
 import ChatSendMessage from '@/components/chat/ChatSendMessage.vue';
-import ChatPlaceholder from '@/components/chat/ChatPlaceholder.vue';
-
-const route = useRoute();
-const isSelected = computed(() => !!route.params.userId);
+import UsersList from '@/components/users/UsersList.vue';
 </script>
 
 <template>
-	<section class="chat">
-		<template v-if="isSelected">
-			<ChatHeader />
-			<ChatMessages />
-			<ChatSendMessage />
-		</template>
-
-		<ChatPlaceholder v-else />
-	</section>
+	<div class="main">
+		<main class="main__window">
+			<UsersList />
+			<section class="main__chat">
+				<ChatHeader />
+				<ChatMessages />
+				<ChatSendMessage />
+			</section>
+		</main>
+	</div>
 </template>
 
 <style scoped lang="sass">
-.chat
+.main
 	display: flex
-	flex-direction: column
-	grid-column: 5 / -1
-	padding: 16px
-	gap: 16px
+	align-items: center
+	justify-content: center
+	height: var(--app-height)
 
-	background-color: var(--color-neutral-700)
-	border-radius: var(--radius-xl)
-
-	&__avatar
-		max-width: 48px
+	&__window
+		display: grid
+		grid-template-columns: repeat(12, minmax(0, 1fr))
+		gap: 16px
+		max-width: 1024px
 		width: 100%
-		height: auto
-		aspect-ratio: 1 / 1
+		max-height: 80svh
+		height: 100%
 
-		object-fit: cover
+	&__chat
+		display: flex
+		flex-direction: column
+		grid-column: 5 / -1
+		padding: 16px
+		gap: 16px
+
+		background-color: var(--color-neutral-700)
+		border-radius: var(--radius-xl)
 </style>

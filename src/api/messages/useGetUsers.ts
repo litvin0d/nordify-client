@@ -14,15 +14,17 @@ async function getUsersRequest(): Promise<Array<User>> {
 }
 
 export function useGetUsers() {
-	const { data, isPending } = useQuery({
+	const { data, isPending, refetch } = useQuery({
 		queryKey: ['users'],
 		queryFn: getUsersRequest,
 		retry: 1,
+		enabled: false,
 	});
 
 	const getCachedUsers = () => queryClient.getQueryData<Array<User>>(['users']) ?? null;
 
 	return {
+		getUsers: refetch,
 		users: data,
 		getCachedUsers,
 		isGettingUsers: isPending,

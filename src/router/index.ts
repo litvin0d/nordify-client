@@ -19,9 +19,12 @@ const routes: RouteRecordRaw[] = [
 		children: [
 			{
 				path: '/chat',
-				name: RouteNames.CHAT_PAGE,
-				component: () => import('@/views/MainView.vue'),
 				children: [
+					{
+						path: '',
+						name: RouteNames.CHAT_PAGE,
+						component: () => import('@/views/MainView.vue'),
+					},
 					{
 						path: ':userId?',
 						name: RouteNames.CHAT_SELECTED_PAGE,

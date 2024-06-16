@@ -1,18 +1,30 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
+import { ref } from 'vue';
 import { useGetUsers } from '@/api/messages/useGetUsers';
+import type { User } from '@/api/types';
 
 const route = useRoute();
 
-const { getCachedUsers } = useGetUsers();
-const users = getCachedUsers();
+const { getCachedUsers, getUsers, users } = useGetUsers();
+const cachedUsers = getCachedUsers();
 
-const user = users?.find(u => u.id === route.params.userId);
+const user = ref<User | undefined>(undefined);
+
+if (cachedUsers) {
+	user.value = cachedUsers.find(u => u.id === route.params.userId);
+}
+else {
+	getUsers().then(() => {
+		user.value = users.value?.find(u => u.id === route.params.userId);
+	});
+}
 </script>
 
 <template>
-	<div v-if="user" class="chat-header">
+	<div class="chat-header">
 		<img
+			v-if="user"
 			:src="user.profilePic"
 			:alt="`Аватар пользователя ${user.fullName}`"
 			width="24px"
@@ -21,10 +33,11 @@ const user = users?.find(u => u.id === route.params.userId);
 		>
 
 		<span class="chat-header__name">
-			{{ user.fullName }}
+			{{ user?.fullName ?? 'Загрузка...' }}
 		</span>
 
 		<span
+			v-if="user"
 			class="chat-header__status chat-header__status--online"
 		>
 			online

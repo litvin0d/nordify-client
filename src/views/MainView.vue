@@ -1,12 +1,21 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+import { onMounted } from 'vue';
 import UsersList from '@/components/users/UsersList.vue';
+import ChatPlaceholder from '@/components/chat/ChatPlaceholder.vue';
+
+const router = useRouter();
+
+onMounted(() => {
+	router.push({ params: { userId: '' } });
+});
 </script>
 
 <template>
 	<div class="main">
 		<main class="main__window">
 			<UsersList />
-			<router-view />
+			<ChatPlaceholder />
 		</main>
 	</div>
 </template>
