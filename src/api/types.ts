@@ -27,6 +27,11 @@ export interface SignUpData {
 	gender: 'male' | 'female';
 }
 
+export interface SendMessageData {
+	receiverId: string;
+	message: string;
+}
+
 export interface LogoutResponse {
 	message: string;
 }

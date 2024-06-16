@@ -15,8 +15,7 @@ onMounted(() => {
 
 // GETTING MESSAGES
 const route = useRoute();
-const { getMessages, messages } = useGetMessages(route.params.userId as string);
-getMessages();
+const { messages } = useGetMessages(route.params.userId as string);
 
 const { getCachedUser } = useGetUser();
 const user = getCachedUser();

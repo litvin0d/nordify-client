@@ -1,12 +1,31 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 import { IconSend } from '@/components/ui/icons';
+import { useSendMessage } from '@/api/messages/useSendMessage';
 
+const route = useRoute();
 const messageValue = ref('');
+
+const { sendMessage, isSendingMessage } = useSendMessage(route.params.userId as string);
+
+function handleSubmit() {
+	const receiverId = route.params.userId as string;
+
+	if (!messageValue.value && !receiverId)
+		return;
+
+	sendMessage({
+		receiverId,
+		message: messageValue.value,
+	});
+
+	messageValue.value = '';
+}
 </script>
 
 <template>
-	<form class="chat-send-message" @submit.prevent>
+	<form class="chat-send-message" @submit.prevent="handleSubmit">
 		<input
 			id="chat-send-message-input"
 			v-model="messageValue"
@@ -20,7 +39,7 @@ const messageValue = ref('');
 		<button
 			type="submit"
 			class="chat-send-message__submit btn btn--color-primary"
-			:disabled="!messageValue"
+			:disabled="!messageValue || isSendingMessage"
 		>
 			<IconSend class="chat-send-message__icon btn__icon" />
 		</button>
