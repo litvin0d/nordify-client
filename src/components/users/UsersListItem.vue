@@ -1,17 +1,26 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import type { User } from '@/api/types';
 import { RouteNames } from '@/router/types';
+import { useWebSocket } from '@/socket/useWebSocket';
 
 export interface UsersListItemProps {
 	userData: User;
 }
 
-defineProps<UsersListItemProps>();
+const props = defineProps<UsersListItemProps>();
+
+const { onlineUsers } = useWebSocket();
+
+const isOnline = computed(() => onlineUsers.value.includes(props.userData.id));
 </script>
 
 <template>
 	<router-link :to="{ name: RouteNames.CHAT_SELECTED_PAGE, params: { userId: userData.id } }" class="users-list-item">
-		<div class="users-list-item__avatar users-list-item__avatar--online">
+		<div
+			class="users-list-item__avatar"
+			:class="{ 'users-list-item__avatar--online': isOnline }"
+		>
 			<img
 				:src="userData.profilePic"
 				:alt="`Аватар пользователя ${userData.fullName}`"
