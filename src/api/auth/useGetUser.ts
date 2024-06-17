@@ -15,7 +15,7 @@ async function getUserRequest(): Promise<User> {
 }
 
 export function useGetUser() {
-	const { refetch, isPending, data }: UseQueryReturnType<User, ErrorResponse> = useQuery<User, ErrorResponse>({
+	const { refetch, isPending, data, isError }: UseQueryReturnType<User, ErrorResponse> = useQuery<User, ErrorResponse>({
 		queryKey: ['user'],
 		queryFn: getUserRequest,
 		retry: 0,
@@ -29,5 +29,6 @@ export function useGetUser() {
 		getCachedUser,
 		refetchUser: refetch,
 		isGettingUser: isPending,
+		isUserError: isError,
 	};
 }

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useDateFormat } from '@vueuse/core';
+
 export interface ChatMessageProps {
 	mode?: 'received' | 'sent';
 	text?: string;
@@ -11,17 +13,7 @@ const props = withDefaults(defineProps<ChatMessageProps>(), {
 	datetime: '00:00 00.00.00',
 });
 
-const formattedDatetime = `${new Date(props.datetime).toLocaleTimeString('ru-RU', {
-	hour: '2-digit',
-	minute: '2-digit',
-	hour12: false,
-	timeZone: 'UTC',
-}).replace(',', '')} ${new Date(props.datetime).toLocaleDateString('ru-RU', {
-	day: '2-digit',
-	month: '2-digit',
-	year: '2-digit',
-	timeZone: 'UTC',
-})}`;
+const dateTime = useDateFormat(new Date(props.datetime), 'H:mm DD.MM.YY');
 </script>
 
 <template>
@@ -33,7 +25,7 @@ const formattedDatetime = `${new Date(props.datetime).toLocaleTimeString('ru-RU'
 			{{ text }}
 		</p>
 		<span class="chat-message__datetime">
-			{{ formattedDatetime }}
+			{{ dateTime }}
 		</span>
 	</article>
 </template>

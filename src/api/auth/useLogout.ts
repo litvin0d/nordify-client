@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/vue-query';
 import { useRouter } from 'vue-router';
-import { queryClient } from '@/api';
 import type { LogoutResponse } from '@/api/types';
 import { RouteNames } from '@/router/types';
+import { queryClient } from '@/api';
 
 async function logoutRequest(): Promise<LogoutResponse> {
 	const response = await fetch('/api/auth/logout', {
@@ -18,7 +18,7 @@ async function logoutRequest(): Promise<LogoutResponse> {
 export function useLogout() {
 	const router = useRouter();
 
-	const logoutMutation = useMutation({
+	const { mutate, isPending } = useMutation({
 		mutationFn: logoutRequest,
 		onSuccess: async () => {
 			queryClient.clear();
@@ -26,10 +26,8 @@ export function useLogout() {
 		},
 	});
 
-	const logout = () => logoutMutation.mutate();
-
 	return {
-		logout,
-		isLoggingOut: logoutMutation.isPending,
+		logout: () => mutate(),
+		isLoggingOut: isPending,
 	};
 }

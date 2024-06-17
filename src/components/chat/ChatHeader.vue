@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useGetUsers } from '@/api/messages/useGetUsers';
 import type { User } from '@/api/types';
+import { useWebSocket } from '@/socket/useWebSocket';
 
 const route = useRoute();
 
@@ -19,6 +20,10 @@ else {
 		user.value = users.value?.find(u => u.id === route.params.userId);
 	});
 }
+
+const { onlineUsers } = useWebSocket();
+
+const isOnline = computed(() => user.value && onlineUsers.value.includes(user.value.id));
 </script>
 
 <template>
@@ -38,9 +43,10 @@ else {
 
 		<span
 			v-if="user"
-			class="chat-header__status chat-header__status--online"
+			class="chat-header__status"
+			:class="{ 'chat-header__status--online': isOnline }"
 		>
-			online
+			{{ isOnline ? 'online' : 'offline' }}
 		</span>
 	</div>
 </template>

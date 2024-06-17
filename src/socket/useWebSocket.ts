@@ -1,19 +1,24 @@
 import type { Socket } from 'socket.io-client';
 import { io } from 'socket.io-client';
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
+import { useDocumentVisibility } from '@vueuse/core';
 import { useGetUser } from '@/api/auth/useGetUser';
 
 export function useWebSocket() {
 	const socketRef = ref<Socket | null>(null);
 	const onlineUsers = ref<Array<string>>([]);
 
-	const { user, isGettingUser } = useGetUser();
+	const { user, isGettingUser, getCachedUser } = useGetUser();
 
-	watch([user, isGettingUser], () => {
-		if (user.value && !isGettingUser.value) {
+	const isOnline = computed(() => useDocumentVisibility().value === 'visible');
+
+	watch([isOnline, user], () => {
+		const cachedUser = getCachedUser();
+
+		if (isOnline.value && cachedUser && !isGettingUser.value) {
 			const socket = io(import.meta.env.VITE_API_BASE_URL ?? '/', {
 				query: {
-					userId: user.value.id,
+					userId: cachedUser.id,
 				},
 			});
 
@@ -28,13 +33,13 @@ export function useWebSocket() {
 				socketRef.value = null;
 			};
 		}
-		else if (!user.value && !isGettingUser.value) {
+		else if (!isOnline.value || !cachedUser) {
 			if (socketRef.value) {
 				socketRef.value.close();
 				socketRef.value = null;
 			}
 		}
-	}, { immediate: true });
+	}, { immediate: true, deep: true });
 
 	return {
 		socketRef,

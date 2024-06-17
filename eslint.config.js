@@ -9,6 +9,7 @@ export default antfu({
 
 	rules: {
 		'eslint-comments/no-unlimited-disable': 'off',
+		'no-console': 'off',
 	},
 
 	// TypeScript and Vue are auto-detected, you can also explicitly enable them:
