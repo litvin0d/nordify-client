@@ -13,7 +13,7 @@ async function getMessagesRequest(userId: string): Promise<Array<Message>> {
 }
 
 export function useGetMessages(userId: string) {
-	const { data, isPending } = useQuery({
+	const { data, refetch } = useQuery({
 		queryKey: ['messages', userId],
 		queryFn: () => getMessagesRequest(userId),
 		retry: 1,
@@ -21,6 +21,6 @@ export function useGetMessages(userId: string) {
 
 	return {
 		messages: data,
-		isGettingMessenger: isPending,
+		getMessages: refetch,
 	};
 }

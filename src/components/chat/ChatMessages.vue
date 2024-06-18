@@ -1,24 +1,35 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { nextTick, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import ChatMessage from '@/components/chat/ChatMessage.vue';
 import { useGetMessages } from '@/api/messages/useGetMessages';
 import { useGetUser } from '@/api/auth/useGetUser';
+import { useListenMessages } from '@/api/messages/useListenMessages';
+
+// GETTING MESSAGES
+const route = useRoute();
+const userId = route.params.userId as string;
+
+const { messages } = useGetMessages(userId);
+
+const { getCachedUser } = useGetUser();
+const user = getCachedUser();
+
+useListenMessages(userId);
 
 // SCROLL TO BOTTOM
 const messagesContainer = ref<HTMLDivElement | null>(null);
 
-onMounted(() => {
-	if (messagesContainer.value)
-		messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
-});
+function scrollToBottom() {
+	nextTick(() => {
+		if (messagesContainer.value) {
+			messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
+		}
+	});
+}
 
-// GETTING MESSAGES
-const route = useRoute();
-const { messages } = useGetMessages(route.params.userId as string);
-
-const { getCachedUser } = useGetUser();
-const user = getCachedUser();
+onMounted(scrollToBottom);
+watch(messages, scrollToBottom, { deep: true });
 </script>
 
 <template>
