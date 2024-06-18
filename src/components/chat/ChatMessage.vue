@@ -42,6 +42,12 @@ const dateTime = useDateFormat(new Date(props.datetime), 'H:mm DD.MM.YY');
 	background-color: var(--color-neutral-600)
 	border-radius: var(--radius-xl) var(--radius-xl) var(--radius-xl) var(--radius-s)
 
+	@media screen and (max-width: 768px)
+		max-width: 80%
+
+	@media screen and (max-width: 460px)
+		padding: 12px
+
 	&:first-child
 		margin-top: auto
 

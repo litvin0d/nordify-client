@@ -63,7 +63,10 @@ const isOnline = computed(() => onlineUsers.value.includes(props.userData.id));
 
 		max-width: 48px
 		max-height: 48px
+		width: 48px
+		height: 48px
 
+		background-color: var(--color-neutral-500)
 		border-radius: var(--radius-circle)
 
 		&::after

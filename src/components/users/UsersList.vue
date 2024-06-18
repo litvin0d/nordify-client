@@ -43,6 +43,19 @@ getUsers();
 	scrollbar-width: thin
 	scrollbar-color: var(--color-neutral-800) var(--color-neutral-700)
 
+	@media screen and (max-width: 460px)
+		gap: 12px
+
+	@media screen and (max-width: 1024px)
+		grid-column: 1 / 6
+		border-radius: 0
+
+	@media screen and (max-width: 768px)
+		grid-column: 1 / 7
+
+	@media screen and (max-width: 600px)
+		grid-column: 1 / -1
+
 	&__divider
 		width: calc(100% - 32px)
 		align-self: center
@@ -54,4 +67,7 @@ getUsers();
 		flex-direction: column
 		gap: 8px
 		padding: 0 16px 16px
+
+		@media screen and (max-width: 460px)
+			padding: 0 12px 12px
 </style>

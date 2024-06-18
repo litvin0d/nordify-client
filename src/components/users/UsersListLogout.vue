@@ -31,6 +31,10 @@ const { logout, isLoggingOut } = useLogout();
 	min-width: 48px
 	margin-top: auto
 
+	@media screen and (max-width: 460px)
+		left: 12px
+		bottom: 12px
+
 	&__icon
 		transform: rotate(180deg) translateX(8%)
 </style>

@@ -54,7 +54,7 @@ watch(messages, scrollToBottom, { deep: true });
 	padding: 16px
 	flex: 1
 
-	max-height: calc(80svh - 190px)
+	max-height: calc(80svh - 195px)
 	overflow-y: auto
 
 	background-color: var(--color-neutral-800)
@@ -62,4 +62,11 @@ watch(messages, scrollToBottom, { deep: true });
 
 	scrollbar-width: thin
 	scrollbar-color: var(--color-neutral-700) var(--color-neutral-800)
+
+	@media screen and (max-width: 1024px)
+		max-height: calc(100svh - 195px)
+
+	@media screen and (max-width: 460px)
+		max-height: calc(100svh - 170px)
+		padding: 12px
 </style>

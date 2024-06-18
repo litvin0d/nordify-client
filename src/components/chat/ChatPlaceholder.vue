@@ -23,6 +23,13 @@
 	background-color: var(--color-neutral-700)
 	border-radius: var(--radius-xl)
 
+	@media screen and (max-width: 1024px)
+		grid-column: 6 / -1
+		border-radius: 0
+
+	@media screen and (max-width: 768px)
+		grid-column: 7 / -1
+
 	&__inner
 		display: flex
 		align-items: center

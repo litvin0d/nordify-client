@@ -84,6 +84,7 @@ function handleSubmit() {
 		--btn-radius: var(--radius-circle)
 
 		min-width: 48px
+		min-height: 46px
 
 	&__icon
 		transform: translateX(-5%)

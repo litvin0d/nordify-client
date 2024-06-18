@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
+import { useWindowSize } from '@vueuse/core';
 import UsersList from '@/components/users/UsersList.vue';
 import ChatPlaceholder from '@/components/chat/ChatPlaceholder.vue';
 
@@ -9,13 +10,16 @@ const router = useRouter();
 onMounted(() => {
 	router.push({ params: { userId: '' } });
 });
+
+const { width } = useWindowSize();
+const showPlaceholder = computed(() => width.value > 600);
 </script>
 
 <template>
 	<div class="main">
 		<main class="main__window">
 			<UsersList />
-			<ChatPlaceholder />
+			<ChatPlaceholder v-if="showPlaceholder" />
 		</main>
 	</div>
 </template>
@@ -35,4 +39,8 @@ onMounted(() => {
 		width: 100%
 		max-height: 80svh
 		height: 100%
+
+		@media screen and (max-width: 1024px)
+			max-height: unset
+			height: 100svh
 </style>

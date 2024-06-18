@@ -4,6 +4,7 @@ import { computed, ref } from 'vue';
 import { useGetUsers } from '@/api/messages/useGetUsers';
 import type { User } from '@/api/types';
 import { useWebSocket } from '@/socket/useWebSocket';
+import { IconBack } from '@/components/ui/icons';
 
 const route = useRoute();
 
@@ -28,6 +29,10 @@ const isOnline = computed(() => user.value && onlineUsers.value.includes(user.va
 
 <template>
 	<div class="chat-header">
+		<router-link to="../" class="chat-header__back btn btn--color-tertiary">
+			<IconBack class="btn__icon" />
+		</router-link>
+
 		<img
 			v-if="user"
 			:src="user.profilePic"
@@ -92,4 +97,15 @@ const isOnline = computed(() => user.value && onlineUsers.value.includes(user.va
 
 		&--online
 			color: var(--color-primary-200)
+
+	&__back
+		--btn-px: 0
+		--btn-py: 0
+		--btn-radius: var(--radius-circle)
+		--btn-icon-size: 20px
+
+		display: none
+
+		@media screen and (max-width: 600px)
+			display: block
 </style>

@@ -1,14 +1,19 @@
 <script setup lang="ts">
+import { useWindowSize } from '@vueuse/core';
+import { computed } from 'vue';
 import ChatHeader from '@/components/chat/ChatHeader.vue';
 import ChatMessages from '@/components/chat/ChatMessages.vue';
 import ChatSendMessage from '@/components/chat/ChatSendMessage.vue';
 import UsersList from '@/components/users/UsersList.vue';
+
+const { width } = useWindowSize();
+const showUsersList = computed(() => width.value > 600);
 </script>
 
 <template>
 	<div class="main">
 		<main class="main__window">
-			<UsersList />
+			<UsersList v-if="showUsersList" />
 			<section class="main__chat">
 				<ChatHeader />
 				<ChatMessages />
@@ -34,6 +39,10 @@ import UsersList from '@/components/users/UsersList.vue';
 		max-height: 80svh
 		height: 100%
 
+		@media screen and (max-width: 1024px)
+			max-height: unset
+			height: 100svh
+
 	&__chat
 		display: flex
 		flex-direction: column
@@ -43,4 +52,18 @@ import UsersList from '@/components/users/UsersList.vue';
 
 		background-color: var(--color-neutral-700)
 		border-radius: var(--radius-xl)
+
+		@media screen and (max-width: 1024px)
+			grid-column: 6 / -1
+			border-radius: 0
+
+		@media screen and (max-width: 768px)
+			grid-column: 7 / -1
+
+		@media screen and (max-width: 600px)
+			grid-column: 1 / -1
+
+		@media screen and (max-width: 460px)
+			padding: 12px
+			gap: 12px
 </style>

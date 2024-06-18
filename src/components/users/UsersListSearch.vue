@@ -1,12 +1,35 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { IconSearch } from '@/components/ui/icons';
+import { useGetUsers } from '@/api/messages/useGetUsers';
+import { RouteNames } from '@/router/types';
 
 const searchValue = ref('');
+const { getCachedUsers } = useGetUsers();
+const router = useRouter();
+
+function handleSubmit() {
+	if (!searchValue.value)
+		return;
+
+	const cachedUsers = getCachedUsers();
+
+	if (!cachedUsers)
+		return;
+
+	const user = cachedUsers.find(u => u.fullName.toLowerCase().includes(searchValue.value.toLowerCase()));
+
+	if (!user)
+		return;
+
+	router.push({ name: RouteNames.CHAT_SELECTED_PAGE, params: { userId: user.id } });
+	return searchValue.value = '';
+}
 </script>
 
 <template>
-	<form class="users-list-search" @submit.prevent>
+	<form class="users-list-search" @submit.prevent="handleSubmit">
 		<input
 			id="users-list-search-input"
 			v-model="searchValue"
@@ -40,6 +63,9 @@ const searchValue = ref('');
 	padding: 16px 16px 0
 
 	background-color: inherit
+
+	@media screen and (max-width: 460px)
+		padding: 12px 12px 0
 
 	&__input
 		flex: 1
