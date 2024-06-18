@@ -13,7 +13,7 @@ const routes: RouteRecordRaw[] = [
 			return { name: RouteNames.CHAT_PAGE };
 		},
 		meta: {
-			name: 'Главная | Nordify',
+			name: 'Главная',
 			middleware: [isLoggedIn],
 		},
 		children: [
@@ -39,7 +39,7 @@ const routes: RouteRecordRaw[] = [
 		name: RouteNames.SIGN_IN_PAGE,
 		component: () => import('@/views/SignInView.vue'),
 		meta: {
-			name: 'Вход | Nordify',
+			name: 'Вход',
 			middleware: [isLoggedOut],
 		},
 	},
@@ -48,7 +48,7 @@ const routes: RouteRecordRaw[] = [
 		name: RouteNames.SIGN_UP_PAGE,
 		component: () => import('@/views/SignUpView.vue'),
 		meta: {
-			name: 'Регистрация | Nordify',
+			name: 'Регистрация',
 			middleware: [isLoggedOut],
 		},
 	},
